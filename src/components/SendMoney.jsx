@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { API_URL } from "../config";
 import { toast } from "react-toastify";
 
@@ -57,6 +57,7 @@ function Amount(){
 }
 
 function Button({onchange, params, amount, api}){
+    const navigate = useNavigate();
     const transferamount = async()=>{
         const loading = toast.loading(`Your transfer of ₹${amount} is being processed`);
         try{
@@ -83,6 +84,7 @@ function Button({onchange, params, amount, api}){
                 isLoading: false,
                 autoClose: 3000,
               })
+              navigate('/dashboard');
         }catch(error){
             toast.update(loading,{
                     render: error.response.data.message,
