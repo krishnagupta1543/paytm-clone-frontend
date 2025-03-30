@@ -3,14 +3,40 @@ import { Heading, Subheading, Input, Label, Button, BottomWarning } from "./Inpu
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
-
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 export function Signin(){
-    // const API_URL = import.meta.env.VITE_API_URL;
-    // const api = API_URL;
     const [userName, setuserName] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const api = API_URL;
+    const handlingSignin = async ()=>{
+        if(userName === "" || password === ""){
+            {preventError()}
+            return
+        }
+        const loadingToast = toast.loading("Signing in...");
+        try{
+            const res = await axios.post(api+'/api/v1/user/signin', {
+                userName: userName,
+                password: password
+            })
+            localStorage.setItem("token", res.data.token);
+            navigate('/dashboard')
+            toast.update(loadingToast, {
+                render: "✅ Sign-in successful!",
+                type: "success",
+                isLoading: false,
+                autoClose: 3000,
+              });
+        }catch(error){
+            toast.update(loadingToast, {
+                render: error.message,
+                type: "error",
+                isLoading: false,
+                autoClose: 3000,
+              });
+        }
+    }
     return(
         <>
             <div className="bg-green-100 h-screen flex justify-center items-center">
@@ -25,26 +51,25 @@ export function Signin(){
                     <Input type={"password"} placeholder={"robertdoe@123"} name={"password"} onchange={(e)=>{
                         setPassword(e.target.value)
                     }}/>
-                    <Button type="submit" title="Signin" onclick={async()=>{
-                        if(userName == "" || password == ""){
-                            {preventError()}
-                            return
-                        }
-                        const res = await axios.post(api+'/api/v1/user/signin', {
-                            userName: userName,
-                            password: password
-                        })
-                        localStorage.setItem("token", res.data.token);
-                        // {console.log(res.data)}
-                        navigate('/dashboard')
-                    }}/>
+                    <Button type="submit" title="Signin" onclick={handlingSignin}/>
                     <BottomWarning label={"Don't have account ?"} buttonText={"signup"} to={"/signup"}/>
                 </div>
             </div>
+            <ToastContainer/>
          
         </>
     )
 }
 function preventError(){
-    alert("enter valid details")
+    toast.error('enter valid details', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
 }
