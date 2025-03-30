@@ -4,6 +4,8 @@ import { Signin } from './components/Signin';
 import {Dashboard} from './components/Dashboard'
 import { SendMoney } from './components/SendMoney';
 import { Mainpage } from './components/Mainpage';
+import {ToastContainer} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';
 function App(){
     return(
         <>
@@ -16,6 +18,7 @@ function App(){
                     <Route path='/send' element={<SendMoney/>}/>
                 </Routes>
             </BrowserRouter>
+            <ToastContainer/>
         </>
     )
 }

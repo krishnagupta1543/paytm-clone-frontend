@@ -3,7 +3,7 @@ import { Heading, Subheading, Input, Label, Button, BottomWarning } from "./Inpu
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { toast, Bounce } from 'react-toastify';
 export function Signin(){
     const [userName, setuserName] = useState("");
     const [password, setPassword] = useState("");
@@ -11,10 +11,10 @@ export function Signin(){
     const api = API_URL;
     const handlingSignin = async ()=>{
         if(userName === "" || password === ""){
-            {preventError()}
+            preventError()
             return
         }
-        const loadingToast = toast.loading("Signing in...");
+        const loadingToast = toast.loading("⏳ Signing in... Please wait.");
         try{
             const res = await axios.post(api+'/api/v1/user/signin', {
                 userName: userName,
@@ -23,7 +23,7 @@ export function Signin(){
             localStorage.setItem("token", res.data.token);
             navigate('/dashboard')
             toast.update(loadingToast, {
-                render: "✅ Sign-in successful!",
+                render: "🎉 Logged in successfully! Let's get started.",
                 type: "success",
                 isLoading: false,
                 autoClose: 3000,
@@ -55,8 +55,6 @@ export function Signin(){
                     <BottomWarning label={"Don't have account ?"} buttonText={"signup"} to={"/signup"}/>
                 </div>
             </div>
-            <ToastContainer/>
-         
         </>
     )
 }
