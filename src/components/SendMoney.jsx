@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom"
 import { API_URL } from "../config";
+import { toast } from "react-toastify";
 
 export function SendMoney(){
     const [params] = useSearchParams();
@@ -56,24 +57,46 @@ function Amount(){
 }
 
 function Button({onchange, params, amount, api}){
+    const transferamount = async()=>{
+        const loading = toast.loading(`Your transfer of ₹${amount} is being processed`);
+        try{
+            if(amount == 0){
+                toast.update(loading, {
+                    render: 'Enter some amount',
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 3000,
+                })
+                return;
+            }
+            const res = await axios.post(api+'/api/v1/account/transfer',{
+                to: params.get("id"),
+                amount: Number(amount)
+            },{
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+            toast.update(loading,  {
+                render: res.data.message,
+                type: "success",
+                isLoading: false,
+                autoClose: 3000,
+              })
+        }catch(error){
+            toast.update(loading,{
+                    render: error.response.data.message,
+                    type: "error",
+                    isLoading: false,
+                    autoClose: 3000,
+                  }
+                )
+        }
+    }
     return(
         <>
             <input type="text" placeholder="Enter amount" name="amount" className="border-gray-400 rounded-md border-1 p-2 w-full" onChange={onchange}/>
-            <button type="submit" className="text-xl font-bold bg-green-400 w-full p-2 mt-5 text-white rounded-sm" onClick={async()=>{
-                try{
-                    const res = await axios.post(api+'/api/v1/account/transfer',{
-                        to: params.get("id"),
-                        amount: Number(amount)
-                    },{
-                        headers: {
-                            Authorization: "Bearer " + localStorage.getItem("token")
-                        }
-                    })
-                    alert(res.data.message)
-                }catch(e){
-                    alert(e.response.data.message)
-                }
-            }}>
+            <button type="submit" className="text-xl font-bold bg-green-400 w-full p-2 mt-5 text-white rounded-sm" onClick={transferamount}>
             Initiate Transfer
             </button>
         </>

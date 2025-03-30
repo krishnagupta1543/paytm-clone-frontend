@@ -1,10 +1,18 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export function Appbar() {
   const navigate = useNavigate();
 
   const handleButton = () => {
+    const loading = toast.loading("⏳ Signing out...");
     localStorage.removeItem("token");
+    toast.update(loading, {
+      render: "✅You’re signed out! Come back anytime.",
+      type: "success",
+      isLoading: false,
+      autoClose: 3000,
+    })
     navigate('/');
   };
 

@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
+import { toast } from "react-toastify";
 
 export function Balance() {
     const [balance, setBalance] = useState(0);
@@ -15,8 +16,8 @@ export function Balance() {
                     }
                 });
                 setBalance(res.data.balance);
-            } catch (err) {
-                console.error("Error fetching balance:", err);
+            } catch (error) {
+                toast.error(error?.response?.data?.message  || "Something went wrong");
             }
         };
 

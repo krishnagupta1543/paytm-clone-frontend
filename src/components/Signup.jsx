@@ -3,6 +3,7 @@ import { Input, Label, Button, BottomWarning, Heading, Subheading } from "./Inpu
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { API_URL } from "../config";
+import { toast, Bounce } from 'react-toastify';
 export function Signup(){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -10,6 +11,36 @@ export function Signup(){
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const api = API_URL;
+    const handlingSignup = async()=>{
+        if(firstName == "" || lastName == "" || email == "" || password == ""){
+            preventError()
+            return
+        }
+       const loadingToast = toast.loading("⏳ Creating your account...");
+       try{
+        const res = await axios.post(api+'/api/v1/user/signup',{
+            userName: email,
+            firstName: firstName,
+            lastName: lastName,
+            password: password
+        })
+        toast.update(loadingToast,  {
+            render: "🎉 Account created successfully! ",
+            type: "success",
+            isLoading: false,
+            autoClose: 3000,
+          })
+        localStorage.setItem("token", res.data.token)
+        navigate('/dashboard')
+       }catch(error){
+        toast.update(loadingToast,  {
+            render: error.response.data.message,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+          });
+       }
+    }
     return(
         <>
             <div className="bg-green-100 h-screen flex justify-center items-center ">
@@ -33,30 +64,7 @@ export function Signup(){
                             setPassword(e.target.value)
                         }} /> 
                         <Button type={"submit"} title={"sigup"}
-                            onclick={async()=>{
-                                if(firstName == "" || lastName == "" || email == "" || password == ""){
-                                    {preventError()}
-                                    return
-                                }
-                               try{
-                                const res = await axios.post(api+'/api/v1/user/signup',{
-                                    userName: email,
-                                    firstName: firstName,
-                                    lastName: lastName,
-                                    password: password
-                                })
-                                {console.log(res.data)}
-                                const message = res.data.message;
-                                if(message === "userNameEmail already exist"){
-                                    alert(message);
-                                    return;
-                                }
-                                localStorage.setItem("token", res.data.token)
-                                navigate('/dashboard')
-                               }catch(err){
-                                {console.log(err)}
-                               }
-                            }}
+                            onclick={handlingSignup}
                         />
                         <BottomWarning label={"Already have an account? "} buttonText={"signin"} to={"/signin"}/>
                 </div>
@@ -65,8 +73,15 @@ export function Signup(){
     )
 }
 function preventError(){
-    alert("enter valid details")
-    return(
-        null
-    )
+    toast.error('enter valid details', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+        });
 }
