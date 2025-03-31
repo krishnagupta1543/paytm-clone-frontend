@@ -1,25 +1,27 @@
 # Paytm Frontend
+
 This is the frontend for the Paytm Clone, a MERN stack-based application that replicates core functionalities of the Paytm platform. It provides a seamless user interface with optimized UI performance.
 
 ## Live link 
 https://paytm-clone-frontend-five.vercel.app/
 
 ## 🚀 Features
-Responsive and interactive UI
 
-JWT-based authentication
+1) Responsive and interactive UI
 
-Optimized UI performance 
+2) JWT-based authentication
 
-Secure money transactions
+3) Optimized UI performance 
+
+4) Secure money transactions
 
 ## 🛠 Tech Stack
 
-Frontend: React.js, Tailwind CSS, React-Toastify
+1) Frontend: React.js, Tailwind CSS, React-Toastify
 
-Backend (Integration-ready): Node.js, Express.js, MongoDB, Mongoose
+2) Backend (Integration-ready): Node.js, Express.js, MongoDB, Mongoose
 
-Authentication: JWT (JSON Web Token)
+3) Authentication: JWT (JSON Web Token)
 
 ## 📂 Project Structure
 
@@ -51,49 +53,56 @@ Paytm-Frontend/
 ## 🔧 Installation & Setup
 
 ### 1️⃣ Clone the Repository
-git clone https://github.com/krishnagupta1543/paytm-clone-frontend.git
+
+    git clone https://github.com/krishnagupta1543/paytm-clone-frontend.git
 
 cd paytm-frontend
 
 ### 2️⃣ Install Dependencies
-npm install
+
+    npm install
 
 ### 3️⃣ Set Up Environment Variables
+
 Create a .env file in the root directory and add:
 
-VITE_API_URL = http://localhost:3000  # Backend API URL
+    VITE_API_URL = http://localhost:3000  # Backend API URL
 
 ### 4️⃣ Run the Application
-npm run dev
+
+    npm run dev
 
 ### 🔗 API Integration
-Ensure the backend is running at http://localhost:3000.
 
- Update VITE_API_URL if necessary.
+1) Ensure the backend is running at
 
-# 🛠 Optimizations
+       http://localhost:3000.
 
-Enhanced authentication security with JWT
+ 2) Update VITE_API_URL if necessary.
 
-Added user-friendly notifications using React-Toastify
+## 🛠 Optimizations
 
-Improved UI performance
+1) Enhanced authentication security with JWT
 
-# 🤝 Contributing
+2) Added user-friendly notifications using React-Toastify
 
-Contributions are welcome! To contribute:
+3) Improved UI performance
 
-Fork the repository
+## 🤝 Contributing
 
-Create a new branch (feature-branch)
+1) Contributions are welcome! To contribute:
 
-Commit your changes
+2) Fork the repository
 
-Push to your fork
+3) Create a new branch (feature-branch)
 
-Submit a Pull Request
+4) Commit your changes
 
-# 📞 Connect
+5) Push to your fork
+
+6) Submit a Pull Request
+
+## 🌐 Connect with Me
 
 Author: Krishna Gupta
 
