@@ -52,17 +52,17 @@ Paytm-Frontend/
 
 ## 🔧 Installation & Setup
 
-### 1️⃣ Clone the Repository
+   ### 1️⃣ Clone the Repository
 
     git clone https://github.com/krishnagupta1543/paytm-clone-frontend.git
 
-cd paytm-frontend
+    cd paytm-frontend
 
-### 2️⃣ Install Dependencies
+  ### 2️⃣ Install Dependencies
 
     npm install
 
-### 3️⃣ Set Up Environment Variables
+ ### 3️⃣ Set Up Environment Variables
 
 Create a .env file in the root directory and add:
 
