@@ -24,23 +24,35 @@ Authentication: JWT (JSON Web Token)
 ## 📂 Project Structure
 
 Paytm-Frontend/
-├── public/            # Static assets (icons, images, etc.)   
+├── public/            # Static assets (icons, images, etc.) 
+
 ├── src/
+
 │   ├── assets/        # Contains images, icons, and other assets
+
 │   ├── components     # Reusable React components
+
 │   ├── App.css        # Global CSS styles
+
 │   ├── App.jsx        # Main React component
+
 │   ├── config.js      # Configuration settings (e.g., API URLs)
+
 │   ├── index.css      # General styles for the app
+
 │   ├── main.js        # Entry point of the React app
+
 ├── .env               # Environment variables (API keys, etc.) 
+
 ├── package.json       # Project dependencies and scripts
+
 ├── README.md          # Project documentation   
 
 ## 🔧 Installation & Setup
 
 ### 1️⃣ Clone the Repository
 git clone https://github.com/krishnagupta1543/paytm-clone-frontend.git
+
 cd paytm-frontend
 
 ### 2️⃣ Install Dependencies
@@ -48,13 +60,16 @@ npm install
 
 ### 3️⃣ Set Up Environment Variables
 Create a .env file in the root directory and add:
+
 VITE_API_URL = http://localhost:3000  # Backend API URL
 
 ### 4️⃣ Run the Application
 npm run dev
 
 ### 🔗 API Integration
-Ensure the backend is running at http://localhost:3000. Update VITE_API_URL if necessary.
+Ensure the backend is running at http://localhost:3000.
+
+ Update VITE_API_URL if necessary.
 
 # 🛠 Optimizations
 
